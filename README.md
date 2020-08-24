@@ -7,3 +7,5 @@
 #####          FUNC5：从训练集中随机选取一定比例的图像和标签作为验证集图像和标签
 #####          FUNC6：由模型输出标签和人工标签计算得到MIOU和MPA
 #### BY LiangBo
+
+![images](https://images.gitee.com/uploads/images/2020/0824/104232_a3ed91aa_5558625.png)
