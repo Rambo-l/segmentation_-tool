@@ -186,7 +186,7 @@
      <item row="0" column="0">
       <widget class="QPushButton" name="sel_jsonjpg_file">
        <property name="text">
-        <string>点击选择JSON-JPG文件夹</string>
+        <string>选择JSON-JPG素材文件夹</string>
        </property>
       </widget>
      </item>
@@ -356,7 +356,7 @@
      <item row="0" column="0">
       <widget class="QPushButton" name="sel_Jsonjpg">
        <property name="text">
-        <string>点击选择JSON-JPG文件夹</string>
+        <string>点击选择JSON&amp;JPG文件夹</string>
        </property>
       </widget>
      </item>
@@ -402,7 +402,7 @@
      <item row="0" column="0" colspan="2">
       <widget class="QPushButton" name="sel_Jsonjpg_2">
        <property name="text">
-        <string>点击选择JSON-JPG文件夹</string>
+        <string>点击选择JSON&amp;JPG文件夹</string>
        </property>
       </widget>
      </item>
@@ -436,7 +436,7 @@
      <item row="3" column="0">
       <widget class="QPushButton" name="sel_JPG_file">
        <property name="text">
-        <string>点击选择JPG文件夹</string>
+        <string>点击选择输出JPG文件夹</string>
        </property>
       </widget>
      </item>
@@ -446,7 +446,7 @@
      <item row="4" column="0">
       <widget class="QPushButton" name="sel_PNG_file">
        <property name="text">
-        <string>点击选择PNG文件夹</string>
+        <string>点击选择输出PNG文件夹</string>
        </property>
       </widget>
      </item>

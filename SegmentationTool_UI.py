@@ -353,6 +353,7 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
         if dirname10:
             self.lineEdit_Jsonjpg.setText(dirname10)
             self.JsonjpgChange = dirname10 + '/'
+            self.Jsonjpg7 = dirname10
 
     def select_output(self):
         dirname11 = QFileDialog.getExistingDirectory(self, "选择一个存放输出文件夹", '.')
@@ -363,7 +364,7 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
     def Json_to_dataset(self):
         count = os.listdir(self.JsonjpgChange)
         for i in range(0, len(count)):
-            path = os.path.join(self.JsonjpgChange, count[i])
+            path = os.path.join(self.Jsonjpg7, count[i])
 
             if os.path.isfile(path) and path.endswith('json'):
                 data = json.load(open(path))
@@ -396,7 +397,7 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
 
                 captions = ['{}: {}'.format(lv, ln)
                             for ln, lv in label_name_to_value.items()]
-                lbl_viz = Models.draw.draw_label(lbl, img, captions)
+                lbl_viz = draw.draw_label(lbl, img, captions)
                 out_dir = osp.basename(count[i]).replace('.', '_')
                 out_dir = osp.join(osp.dirname(count[i]), out_dir)
                 out_dir = osp.join(self.outputChange, out_dir)
