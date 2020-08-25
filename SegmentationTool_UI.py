@@ -80,13 +80,13 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
             self.lineEdit_videopic_change.setText("Video Loading Error!!!")
 
     def OpenVideo(self):
-        self.video_pic_path = QFileDialog.getOpenFileName(self, '选择视频文件', './', "(*.mp4)")
+        self.video_pic_path = QFileDialog.getOpenFileName(self, '选择要转换的视频文件', './', "(*.mp4)")
         self.lineEdit_video.setText(self.video_pic_path[0])
         self.PrepCamera()
 
     # 选择图像存储位置
     def SelectSavePlace(self):
-        dirname = QFileDialog.getExistingDirectory(self, "浏览", '.')
+        dirname = QFileDialog.getExistingDirectory(self, "选择图像存储文件夹", '.')
         if dirname:
             self.lineEdit_image.setText(dirname)
             self.SavePathChange = dirname + '/'
@@ -110,21 +110,21 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
 
     # 选择Json和jpg共同存在的文件夹
     def SelectJsonjpgPlace(self):
-        dirname1 = QFileDialog.getExistingDirectory(self, "浏览", '.')
+        dirname1 = QFileDialog.getExistingDirectory(self, "选择Json/Jpg素材文件夹", '.')
         if dirname1:
             self.lineEdit_jsonjpg.setText(dirname1)
             self.SaveJsonjpgChange = dirname1 + '/'
 
     # 选择json文件存放的位置
     def SelectJsonsavePlace(self):
-        dirname2 = QFileDialog.getExistingDirectory(self, "浏览", '.')
+        dirname2 = QFileDialog.getExistingDirectory(self, "选择Json存放文件夹", '.')
         if dirname2:
             self.lineEdit_json.setText(dirname2)
             self.SaveJsonChange = dirname2 + '/'
 
     # 选择jpg文件存放的位置
     def SelectJpgsavePlace(self):
-        dirname3 = QFileDialog.getExistingDirectory(self, "浏览", '.')
+        dirname3 = QFileDialog.getExistingDirectory(self, "选择Jpg存放文件夹", '.')
         if dirname3:
             self.lineEdit_jpg.setText(dirname3)
             self.SaveJpgChange = dirname3 + '/'
@@ -170,25 +170,25 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
 
     # <-------------FUNC5：从训练集中随机选取一定比例的图像和标签作为验证集图像和标签---------------->
     def Select_train_image(self):
-        dirname4 = QFileDialog.getExistingDirectory(self, "浏览", '.')
+        dirname4 = QFileDialog.getExistingDirectory(self, "选择训练集图像文件夹", '.')
         if dirname4:
             self.lineEdit_trainimage.setText(dirname4)
             self.SaveTrainimageChange = dirname4 + '/'
 
     def Select_train_label(self):
-        dirname5 = QFileDialog.getExistingDirectory(self, "浏览", '.')
+        dirname5 = QFileDialog.getExistingDirectory(self, "选择训练集标签文件夹", '.')
         if dirname5:
             self.lineEdit_trainlabel.setText(dirname5)
             self.SaveTrainlabelChange = dirname5 + '/'
 
     def Select_val_image(self):
-        dirname6 = QFileDialog.getExistingDirectory(self, "浏览", '.')
+        dirname6 = QFileDialog.getExistingDirectory(self, "选择验证集图像文件夹", '.')
         if dirname6:
             self.lineEdit_valimage.setText(dirname6)
             self.SaveValimageChange = dirname6 + '/'
 
     def Select_val_label(self):
-        dirname7 = QFileDialog.getExistingDirectory(self, "浏览", '.')
+        dirname7 = QFileDialog.getExistingDirectory(self, "选择验证集标签文件夹", '.')
         if dirname7:
             self.lineEdit_vallabel.setText(dirname7)
             self.SaveVallabelChange = dirname7 + '/'
@@ -236,13 +236,13 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
 
     # <-------------FUNC6：由模型输出标签和人工标签计算得到MIOU和MPA---------------->
     def Model_label(self):
-        dirname8 = QFileDialog.getExistingDirectory(self, "浏览", '.')
+        dirname8 = QFileDialog.getExistingDirectory(self, "选择模型输出标签文件夹", '.')
         if dirname8:
             self.lineEdit_modellabel.setText(dirname8)
             self.ModellabelChange = dirname8 + '/'
 
     def Handle_label(self):
-        dirname9 = QFileDialog.getExistingDirectory(self, "浏览", '.')
+        dirname9 = QFileDialog.getExistingDirectory(self, "选择手工标注标签文件夹", '.')
         if dirname9:
             self.lineEdit_handlelabel.setText(dirname9)
             self.HandlelabelChange = dirname9 + '/'
@@ -349,13 +349,13 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
 
     ##################FUNC3：Json_to_Dataset功能#####################
     def select_Jsonjpg(self):
-        dirname10 = QFileDialog.getExistingDirectory(self, "浏览", '.')
+        dirname10 = QFileDialog.getExistingDirectory(self, "选择存放Json和Jpg文件的文件夹", '.')
         if dirname10:
             self.lineEdit_Jsonjpg.setText(dirname10)
             self.JsonjpgChange = dirname10 + '/'
 
     def select_output(self):
-        dirname11 = QFileDialog.getExistingDirectory(self, "浏览", '.')
+        dirname11 = QFileDialog.getExistingDirectory(self, "选择一个存放输出文件夹", '.')
         if dirname11:
             self.lineEdit_output.setText(dirname11)
             self.outputChange = dirname11 + '/'
@@ -423,7 +423,7 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
 
     # <------------FUNC4：Get_JPG_PNG--------------->
     def select_Jsonjpg_2(self):
-        dirname11 = QFileDialog.getExistingDirectory(self, "浏览", '.')
+        dirname11 = QFileDialog.getExistingDirectory(self, "选择存放Json和Jpg文件的文件夹", '.')
         if dirname11:
             self.lineEdit_Jsonjpg_2.setText(dirname11)
             self.JsonjpgChange2 = dirname11 + '/'
@@ -436,19 +436,19 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
             self.txt = dirname12[0]
 
     def select_jpg2(self):
-        dirname13 = QFileDialog.getExistingDirectory(self, "浏览", '.')
+        dirname13 = QFileDialog.getExistingDirectory(self, "选择存放Jpg图像的文件夹", '.')
         if dirname13:
             self.lineEdit_Jsonjpg_4.setText(dirname13)
             self.jpg2Change = dirname13
 
     def select_png2(self):
-        dirname14 = QFileDialog.getExistingDirectory(self, "浏览", '.')
+        dirname14 = QFileDialog.getExistingDirectory(self, "选择存放Png图像的文件夹", '.')
         if dirname14:
             self.lineEdit_Jsonjpg_5.setText(dirname14)
             self.pngChange = dirname14
 
     def select_out2(self):
-        dirname15 = QFileDialog.getExistingDirectory(self, "浏览", '.')
+        dirname15 = QFileDialog.getExistingDirectory(self, "选择JsonToDataset的结果文件夹", '.')
         if dirname15:
             self.lineEdit_Jsonjpg_7.setText(dirname15)
             self.out2Change = dirname15 + '/'
