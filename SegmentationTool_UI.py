@@ -1,12 +1,14 @@
-# 语义分割训练前处理工具
-# 主要功能：
-#          FUNC1：视频素材转换成图像
-#          FUNC2：把标注后json文件和对应的jpg文件从混合的文件夹中提取出来
-#          FUNC3：Json_to_Dataset功能.从Json文件获得标签文件
-#          FUNC4：Get_JPG_PNG从上一步的Dataset文件中提取训练图像和训练标签
-#          FUNC5：从训练集中随机选取一定比例的图像和标签作为验证集图像和标签
-#          FUNC6：由模型输出标签和人工标签计算得到MIOU和MPA
-# BY LiangBo
+"""
+  语义分割训练前处理工具
+  主要功能：
+           FUNC1：视频素材转换成图像
+           FUNC2：把标注后json文件和对应的jpg文件从混合的文件夹中提取出来
+           FUNC3：Json_to_Dataset功能.从Json文件获得标签文件
+           FUNC4：Get_JPG_PNG从上一步的Dataset文件中提取训练图像和训练标签
+           FUNC5：从训练集中随机选取一定比例的图像和标签作为验证集图像和标签
+           FUNC6：由模型输出标签和人工标签计算得到MIOU和MPA
+  BY LiangBo
+"""
 
 import sys
 import numpy as np
@@ -25,7 +27,7 @@ import warnings
 import PIL.Image
 import yaml
 from labelme import utils
-from Models import draw
+import draw
 import base64
 
 __all__ = ['SegmentationMetric']
@@ -37,7 +39,8 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
         super(Seg_Tool, self).__init__(parent)
         self.setupUi(self)
         self.CallBack()
-        self.numClass = 2  # 语义分割类选择，有几类就改为几
+        # 语义分割类选择，有几类就改为几
+        self.numClass = 2  
         self.confusionMatrix = np.zeros((self.numClass,) * 2)
 
     # 按键关联回调函数
@@ -67,7 +70,8 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
         self.sel_PNG_file.clicked.connect(self.select_png2)
         self.do_get_jpgpng.clicked.connect(self.Get_jpg_png)
         self.exit_button.clicked.connect(self.exitApp)
-    #############FUNC1：视频素材转换成图像########################
+    
+    # <--------------FUNC1：视频素材转换成图像------------------>
     # 视频转图像视频文件读入
     def PrepCamera(self):
         try:
@@ -153,7 +157,7 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
         f = open(write_file_name, 'r')
         lines = f.readlines()
         for line in lines:
-            line = line.strip('\n')  # 去除文本的换行符，否则报错
+            line = line.strip('\n')               # 去除文本的换行符，否则报错
             shutil.move(fileLabelDir + str(line) + '.jpg', self.SaveJpgChange + str(line) + '.jpg')
 
     def moveJSON(self, fileLabelDir, write_file_name):
@@ -161,10 +165,10 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
         f = open(write_file_name, 'r')
         lines = f.readlines()
         for line in lines:
-            line = line.strip('\n')  # 去除文本的换行符，否则报错
+            line = line.strip('\n')               # 去除文本的换行符，否则报错
             shutil.move(fileLabelDir + str(line) + '.json', self.SaveJsonChange + str(line) + '.json')
 
-    ###################FUNC5：从训练集中随机选取一定比例的图像和标签作为验证集图像和标签###################
+    # <-------------FUNC5：从训练集中随机选取一定比例的图像和标签作为验证集图像和标签---------------->
     def Select_train_image(self):
         dirname4 = QFileDialog.getExistingDirectory(self, "浏览", '.')
         if dirname4:
@@ -210,13 +214,13 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
     def extract_name_random(self, Image_dir, write_file_name):
         file_list = []
         # 读取文件，并将地址、图片名和标签写到txt文件中
-        write_file = open(write_file_name, "w")  # 打开write_file_name文件
+        write_file = open(write_file_name, "w")     # 打开write_file_name文件
         for file in os.listdir(Image_dir):
             if file.endswith(".jpg"):
-                name = file.split('.')[0]  # 分割图像名称和后缀名
+                name = file.split('.')[0]           # 分割图像名称和后缀名
                 write_name = name
                 file_list.append(write_name)
-        sorted(file_list)  # 将列表中所有元素随机排列
+        sorted(file_list)                           # 将列表中所有元素随机排列
         number_of_lines = len(file_list)
         for current_line in range(number_of_lines):
             write_file.write(file_list[current_line] + '\n')
@@ -227,10 +231,10 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
         f = open(write_file_name, 'r')
         lines = f.readlines()
         for line in lines:
-            line = line.strip('\n')  # 去除文本的换行符，否则报错
+            line = line.strip('\n')                 # 去除文本的换行符，否则报错
             shutil.move(fileLabelDir + str(line) + '.png', self.SaveVallabelChange + str(line) + '.png')
 
-    ####################FUNC6：由模型输出标签和人工标签计算得到MIOU和MPA######################
+    # <-------------FUNC6：由模型输出标签和人工标签计算得到MIOU和MPA---------------->
     def Model_label(self):
         dirname8 = QFileDialog.getExistingDirectory(self, "浏览", '.')
         if dirname8:
@@ -253,21 +257,21 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
         # return each category pixel accuracy(A more accurate way to call it precision)
         # acc = (TP) / TP + FP
         classAcc = np.diag(self.confusionMatrix) / self.confusionMatrix.sum(axis=1)
-        return classAcc  # 返回的是一个列表值，如：[0.90, 0.80, 0.96]，表示类别1 2 3各类别的预测准确率
+        return classAcc                 # 返回的是一个列表值，如：[0.90, 0.80, 0.96]，表示类别1 2 3各类别的预测准确率
 
     def meanPixelAccuracy(self):
         classAcc = self.classPixelAccuracy()
         meanAcc = np.nanmean(classAcc)  # np.nanmean 求平均值，nan表示遇到Nan类型，其值取为0
-        return meanAcc  # 返回单个值，如：np.nanmean([0.90, 0.80, 0.96, nan, nan]) = (0.90 + 0.80 + 0.96） / 3 =  0.89
+        return meanAcc                  # 返回单个值，如：np.nanmean([0.90, 0.80, 0.96, nan, nan]) = (0.90 + 0.80 + 0.96） / 3 =  0.89
 
     def meanIntersectionOverUnion(self):
         # Intersection = TP Union = TP + FP + FN
         # IoU = TP / (TP + FP + FN)
-        intersection = np.diag(self.confusionMatrix)  # 取对角元素的值，返回列表
+        intersection = np.diag(self.confusionMatrix)    # 取对角元素的值，返回列表
         union = np.sum(self.confusionMatrix, axis=1) + np.sum(self.confusionMatrix, axis=0) - np.diag(
-            self.confusionMatrix)  # axis = 1表示混淆矩阵行的值，返回列表； axis = 0表示取混淆矩阵列的值，返回列表
-        IoU = intersection / union  # 返回列表，其值为各个类别的IoU
-        mIoU = np.nanmean(IoU)  # 求各类别IoU的平均
+            self.confusionMatrix)                       # axis = 1表示混淆矩阵行的值，返回列表； axis = 0表示取混淆矩阵列的值，返回列表
+        IoU = intersection / union                      # 返回列表，其值为各个类别的IoU
+        mIoU = np.nanmean(IoU)                          # 求各类别IoU的平均
         return mIoU
 
     def genConfusionMatrix(self, imgPredict, imgLabel):  # 同FCN中score.py的fast_hist()函数
@@ -300,10 +304,10 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
         write_file = open(write_file_name, "w")  # 打开write_file_name文件
         for file in os.listdir(Image_dir):
             if file.endswith(".png"):
-                name = file.split('.')[0]  # 分割图像名称和后缀名
+                name = file.split('.')[0]        # 分割图像名称和后缀名
                 write_name = name
                 file_list.append(write_name)
-        sorted(file_list)  # 将列表中所有元素随机排列
+        sorted(file_list)                        # 将列表中所有元素随机排列
         number_of_lines = len(file_list)
         for current_line in range(number_of_lines):
             write_file.write(file_list[current_line] + '\n')
@@ -417,7 +421,7 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
                 print('Saved to: %s' % out_dir)
         self.lineEdit_do_jsontodataset.setText('Json To Dataset Complete!')
 
-    ################FUNC4：Get_JPG_PNG################
+    # <------------FUNC4：Get_JPG_PNG--------------->
     def select_Jsonjpg_2(self):
         dirname11 = QFileDialog.getExistingDirectory(self, "浏览", '.')
         if dirname11:
