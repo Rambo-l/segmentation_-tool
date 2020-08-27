@@ -98,6 +98,7 @@ class Seg_Tool(QMainWindow, Ui_MainWindow):
         while (image_index - 1) < total_frame_number:
             ret, frame = self.camera.read()
             if ret:
+                frame = cv2.resize(frame , (640,320))
                 filename = str(image_index) + '.jpg'
                 cv2.imwrite(self.SavePathChange + filename, frame)
                 image_index += 1
