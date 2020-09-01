@@ -1,7 +1,8 @@
 #### 语义分割训练前处理工具
 详细说明在：[CSDN链接](https://blog.csdn.net/qq_39330520/article/details/108219002)
 #### 运行
-git clone或下载程序后，运行Segmentation_UI.py即可打开界面进行操作
+git clone或下载程序后，运行.exe文件可直接运行
+或运行Segmentation_UI.py也可打开界面进行操作
 #### 主要功能：
 |  Num   |                         Title
 |--------|------------------------------------------------------------
